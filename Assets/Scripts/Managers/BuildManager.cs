@@ -16,14 +16,15 @@ public class BuildManager : MonoBehaviour
     [SerializeField] public Material M_CantPlace;
     [SerializeField] private int gridWidth = 10;
     [SerializeField] private int gridHeight = 10;
-    [SerializeField] private float cellSize = 10f;
+    [SerializeField] internal float cellSize = 10f;
+    [SerializeField] internal Vector2Int mainBuildingPosition = new Vector2Int(2, 2);
+    [SerializeField] private Vector2Int goldMinePosition = new Vector2Int(6, 6);
 
     private GridXZ<GridObject> grid;
     private BuildingGhost buildingGhost;
     private PlacedObjectTypeSO placedObjectTypeSO;
     private PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
     private ResourceTypeSO goldType;
-
 
     private bool isDemolishActive;
 
@@ -126,10 +127,6 @@ public class BuildManager : MonoBehaviour
 
     private void PlaceDefaultBuildings()
     {
-        // Posities voor de standaard gebouwen
-            Vector2Int mainBuildingPosition = new Vector2Int(2, 2); // Pas deze posities aan naar waar je de gebouwen wilt plaatsen
-            Vector2Int goldMinePosition = new Vector2Int(8, 8);     // Pas deze posities aan naar waar je de gebouwen wilt plaatsen
-
             // Plaats MainBuilding
             if (TryPlaceObject(mainBuildingPosition, mainBuildingSO, PlacedObjectTypeSO.Dir.Down))
             {
