@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
         transform.position += direction * moveSpeed * Time.deltaTime;
 
         // Check of de vijand nog beweegt en speel de animatie af
-        if (direction.magnitude > 0.1f)
+        if (direction.magnitude > 0.5f)
         {
             animator.SetBool("isMoving", true); // Animatie afspelen
         }
