@@ -88,8 +88,8 @@ public class BuildingGhost : MonoBehaviour
             {
                 // Roep direct SetMaterial aan met het juiste materiaal gebaseerd op de bouwstatus
                 Material ghostMaterial = BuildManager.Instance.CanBuildHere() ? BuildManager.Instance.M_CanPlace : BuildManager.Instance.M_CantPlace;
-                Debug.Log("Can build? " + BuildManager.Instance.CanBuildHere());
-                Debug.Log(ghostMaterial);
+                //Debug.Log("Can build? " + BuildManager.Instance.CanBuildHere());
+                //Debug.Log(ghostMaterial);
                 SetMaterial(ghostMaterial);
             }
         }

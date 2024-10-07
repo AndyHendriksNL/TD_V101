@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mouseWorldPosition = Mouse3D.GetMouseWorldPosition();
-            Debug.Log("mouse position: " + mouseWorldPosition);
+            //Debug.Log("mouse position: " + mouseWorldPosition);
 
             // Schiet een ray vanaf de muispositie in de wereld
             Ray ray = new Ray(mouseWorldPosition, Vector3.down); // Ray richting beneden of een andere richting
@@ -21,7 +21,7 @@ public class InputManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 1000f, BuildingsLayer))  // Gebruik LayerMask voor selecteerbare objecten
             {
-                Debug.Log("Hit gameobject: " + hit.collider.gameObject);
+                //Debug.Log("Hit gameobject: " + hit.collider.gameObject);
                 if (hit.collider.gameObject.CompareTag("hasPopup"))
                 {
                     SelectObject(hit.collider.gameObject);

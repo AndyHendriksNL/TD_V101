@@ -5,13 +5,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [SerializeField] private Dictionary<PlacedObjectTypeSO, int> placedBuildings = new Dictionary<PlacedObjectTypeSO, int>();
+
     public ResourceTypeSO goldResource; // Verwijzing naar het ResourceTypeSO voor goud
     public ResourceTypeSO villagersResource; // Verwijzing naar het ResourceTypeSO voor villagers
     public PlacedObjectTypeSO goldMineSO;
     public PlacedObjectTypeSO MainBuildingSO;
-
-    private Dictionary<PlacedObjectTypeSO, int> placedBuildings = new Dictionary<PlacedObjectTypeSO, int>();
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     public void AddBuilding(PlacedObjectTypeSO buildingData)
     {
-        //Debug.Log("Add to placedBuildings: " + buildingData.name);
+        Debug.Log("Add to placedBuildings: " + buildingData.name);
 
         if (!placedBuildings.ContainsKey(buildingData))
         {
@@ -55,6 +55,12 @@ public class GameManager : MonoBehaviour
         }
 
         placedBuildings[buildingData] += 1; // Verhoog het aantal gebouwen
+
+        if (ResourceManager.instance == null)
+        {
+            Debug.LogError("ResourceManager instance is not assigned!");
+            return;
+        }
 
         ResourceManager.instance.OnBuildingPlaced();
 

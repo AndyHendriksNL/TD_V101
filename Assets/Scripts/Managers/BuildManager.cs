@@ -19,6 +19,8 @@ public class BuildManager : MonoBehaviour
     private BuildingGhost buildingGhost;
     private PlacedObjectTypeSO placedObjectTypeSO;
     private PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
+    private ResourceTypeSO goldType;
+
 
     private bool isDemolishActive;
 
@@ -30,8 +32,12 @@ public class BuildManager : MonoBehaviour
         int gridHeight = 10;
         float cellSize = 10f;
         grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSize, Vector3.zero, (GridXZ<GridObject> gameObject, int x, int z) => new GridObject(gameObject, x, z));
+    }
 
+    private void Start()
+    {
         PlaceDefaultBuildings();
+        goldType = ResourceManager.instance.resourceTypeList.list.Find(r => r.type == ResourceType.Gold);
     }
 
     public class GridObject
@@ -121,28 +127,28 @@ public class BuildManager : MonoBehaviour
     private void PlaceDefaultBuildings()
     {
         // Posities voor de standaard gebouwen
-        Vector2Int mainBuildingPosition = new Vector2Int(2, 2); // Pas deze posities aan naar waar je de gebouwen wilt plaatsen
-        Vector2Int goldMinePosition = new Vector2Int(8, 8);     // Pas deze posities aan naar waar je de gebouwen wilt plaatsen
+            Vector2Int mainBuildingPosition = new Vector2Int(2, 2); // Pas deze posities aan naar waar je de gebouwen wilt plaatsen
+            Vector2Int goldMinePosition = new Vector2Int(8, 8);     // Pas deze posities aan naar waar je de gebouwen wilt plaatsen
 
-        // Plaats MainBuilding
-        if (TryPlaceObject(mainBuildingPosition, mainBuildingSO, PlacedObjectTypeSO.Dir.Down))
-        {
-            //Debug.Log("MainBuilding geplaatst op " + mainBuildingPosition);
-        }
-        else
-        {
-            Debug.LogError("Kan MainBuilding niet plaatsen!");
-        }
+            // Plaats MainBuilding
+            if (TryPlaceObject(mainBuildingPosition, mainBuildingSO, PlacedObjectTypeSO.Dir.Down))
+            {
+                //Debug.Log("MainBuilding geplaatst op " + mainBuildingPosition);
+            }
+            else
+            {
+                Debug.LogError("Kan MainBuilding niet plaatsen!");
+            }
 
-        // Plaats GoldMine
-        if (TryPlaceObject(goldMinePosition, goldMineSO, PlacedObjectTypeSO.Dir.Down))
-        {
-            //Debug.Log("GoldMine geplaatst op " + goldMinePosition);
-        }
-        else
-        {
-            Debug.LogError("Kan GoldMine niet plaatsen!");
-        }
+            // Plaats GoldMine
+            if (TryPlaceObject(goldMinePosition, goldMineSO, PlacedObjectTypeSO.Dir.Down))
+            {
+                //Debug.Log("GoldMine geplaatst op " + goldMinePosition);
+            }
+            else
+            {
+                Debug.LogError("Kan GoldMine niet plaatsen!");
+            }   
     }
 
     private void HandleNormalObjectPlacement()
@@ -150,20 +156,37 @@ public class BuildManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && placedObjectTypeSO != null && !UtilsClass.IsPointerOverUI())
         {
             Vector3 mousePosition = Mouse3D.GetMouseWorldPosition();
-            // convert worldposition to grid position (x, z)
             grid.GetXZ(mousePosition, out int x, out int z);
 
-            Vector2Int placedObjectOrigin = new Vector2Int(x, z);
-            if (TryPlaceObject(placedObjectOrigin, placedObjectTypeSO, dir, out PlacedObject placedObject))
+            if(CheckEnoughGold(placedObjectTypeSO.buildCost))
             {
-                // Object placed
+                Vector2Int placedObjectOrigin = new Vector2Int(x, z);
+                if (TryPlaceObject(placedObjectOrigin, placedObjectTypeSO, dir, out PlacedObject placedObject))
+                {
+                    // Object placed
+                }
+                else
+                {
+                    // Error!
+                    UtilsClass.CreateWorldTextPopup("Cannot Build Here!", mousePosition);
+                }
             }
             else
             {
-                // Error!
-                UtilsClass.CreateWorldTextPopup("Cannot Build Here!", mousePosition);
-            }
+                UtilsClass.CreateWorldTextPopup("Not enough gold!", mousePosition);
+            }            
         }
+    }
+
+    private bool CheckEnoughGold(int buildCost)
+    {
+        int currentGold = ResourceManager.instance.GetResourceAmount(goldType);
+
+        if (currentGold > buildCost)
+        {
+            return true;
+        }
+        else { return false; }
     }
 
     private void HandleDirRotation()
@@ -240,7 +263,7 @@ public class BuildManager : MonoBehaviour
             }
         }
 
-        //Debug.Log("Canbuild:" + canBuild);
+        Debug.Log("Canbuild:" + canBuild);
 
         if (canBuild)
         {
@@ -255,6 +278,15 @@ public class BuildManager : MonoBehaviour
             }
 
             placedObject.GridSetupDone();
+
+            // let GameManger know a building was added
+            GameManager.instance.AddBuilding(placedObjectTypeSO);
+
+            // pay for building
+            if(placedObjectTypeSO.buildCost > 0)
+            {
+                ResourceManager.instance.AddResource(goldType, -placedObjectTypeSO.buildCost);
+            }            
 
             OnObjectPlaced?.Invoke(placedObject, EventArgs.Empty);
 

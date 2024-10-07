@@ -16,7 +16,7 @@ public class BuildingTypeSelectUI : MonoBehaviour
 
     private void Instance_OnSelectedChanged(object sender, System.EventArgs e)
     {
-        Debug.Log("UI ontvangt select change");
+        //Debug.Log("UI ontvangt select change");
         ShowHideCancelButton();
     }
 
@@ -49,7 +49,7 @@ public class BuildingTypeSelectUI : MonoBehaviour
             // set button
             btnTransform.GetComponent<Button>().onClick.AddListener(() =>
             {
-                Debug.Log("Click on button detected:" + buildingType);
+                //Debug.Log("Click on button detected:" + buildingType);
 
                 BuildManager.Instance.SetSelectedPlacedObject(buildingType);
             });

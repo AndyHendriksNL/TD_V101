@@ -14,11 +14,14 @@ public class ResourceManager : MonoBehaviour
     private int freeVillagers;
     private int totalGoldGeneration;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
-        InitializeResources();
+    }
 
+    private void Start()
+    {        
+        InitializeResources();
     }
 
     private void InitializeResources()
@@ -80,15 +83,15 @@ public class ResourceManager : MonoBehaviour
 
         totalGoldGeneration = freeVillagers;
 
-        Debug.Log("Total assignedVillagers calculated: " + assignedVillagers);
-        Debug.Log("Total Villagers calculated: " + totalVillagers);
-        Debug.Log("Total Gold/tick calculated: " + totalGoldGeneration);
+        //Debug.Log("Total assignedVillagers calculated: " + assignedVillagers);
+        //Debug.Log("Total Villagers calculated: " + totalVillagers);
+        //Debug.Log("Total Gold/tick calculated: " + totalGoldGeneration);
     }
 
     // add resource to the total and update UI
     public void AddResource(ResourceTypeSO resourceType, int amount)
     {
-        Debug.Log("Add: " + amount + " of "+ resourceType+ ". Total is now:" + resourceAmounts[resourceType]);
+        //Debug.Log("Add: " + amount + " of "+ resourceType+ ". Total is now:" + resourceAmounts[resourceType]);
 
         if (resourceAmounts.ContainsKey(resourceType))
         {
@@ -128,7 +131,7 @@ public class ResourceManager : MonoBehaviour
             if (goldType != null)
             {
                 AddResource(goldType, totalGoldGeneration); // Voeg de hoeveelheid totalGoldGeneration toe aan de huidige goudvoorraad
-                Debug.Log($"Generated {totalGoldGeneration} gold. New total is: {GetResourceAmount(goldType)}.");
+                //Debug.Log($"Generated {totalGoldGeneration} gold. New total is: {GetResourceAmount(goldType)}.");
             }
 
             yield return null; // Wacht tot de volgende frame
