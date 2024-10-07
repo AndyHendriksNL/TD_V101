@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,6 +64,11 @@ public class PlacedObject : MonoBehaviour {
             dir = dir,
             //floorPlacedObjectSave = (this is FloorPlacedObject) ? ((FloorPlacedObject)this).Save() : "",
         };
+    }
+
+    internal PlacedObjectTypeSO GetPlacedObjectType()
+    {
+        return placedObjectTypeSO;
     }
 
     [System.Serializable]

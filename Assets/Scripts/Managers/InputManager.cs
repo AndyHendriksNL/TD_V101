@@ -81,10 +81,25 @@ public class InputManager : MonoBehaviour
     {
         if (obj != null)
         {
-            // Update UI panel with the building's information
-            nameText.text = obj.name;
+            PlacedObject placedObject = obj.GetComponent<PlacedObject>();
+            if(placedObject != null)
+            {
+                PlacedObjectTypeSO placedObjectType = placedObject.GetPlacedObjectType();
+                if(placedObjectType != null)
+                {
+                    // Update UI panel with the building's information
+                    nameText.text = placedObjectType.nameString;
 
-            detailsPanel.SetActive(true); // Show the details UI panel
+                    detailsPanel.SetActive(true); // Show the details UI panel
+                }
+            }
+            else
+            {
+                Debug.LogError($"Kon extra gegevens van aangeklikt object niet ophalen: {obj}");
+            }
+                
+
+            
         }
     }
 }

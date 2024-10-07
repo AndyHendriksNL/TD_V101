@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7747bdf78fa6141a2f81d16ff91e5f, type: 3}
   m_Name: GoldMine
   m_EditorClassIdentifier: 
-  nameString: GoldMine
+  nameString: Gold Mine
   prefab: {fileID: 4787994586090115604, guid: 8f01e4638b0d53e4793beb6029866640, type: 3}
   visual: {fileID: 2499414142690952232, guid: 24602e9b848b1d040bf7e2b4f47f2d19, type: 3}
   width: 1
