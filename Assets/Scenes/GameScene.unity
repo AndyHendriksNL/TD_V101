@@ -371,6 +371,9 @@ MonoBehaviour:
   goldMineSO: {fileID: 11400000, guid: 58adc9d950517b24bbd8cc4098b884af, type: 2}
   M_CanPlace: {fileID: 2100000, guid: 38bbd2177057dc54e84010aa55aa84e8, type: 2}
   M_CantPlace: {fileID: 2100000, guid: eef8a5b21becf3142a68f622a489df97, type: 2}
+  gridWidth: 30
+  gridHeight: 30
+  cellSize: 10
 --- !u!4 &380834821
 Transform:
   m_ObjectHideFlags: 0

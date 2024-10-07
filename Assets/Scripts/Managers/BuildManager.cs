@@ -14,6 +14,9 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private PlacedObjectTypeSO goldMineSO;
     [SerializeField] public Material M_CanPlace;
     [SerializeField] public Material M_CantPlace;
+    [SerializeField] private int gridWidth = 10;
+    [SerializeField] private int gridHeight = 10;
+    [SerializeField] private float cellSize = 10f;
 
     private GridXZ<GridObject> grid;
     private BuildingGhost buildingGhost;
@@ -27,10 +30,7 @@ public class BuildManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        int gridWidth = 10;
-        int gridHeight = 10;
-        float cellSize = 10f;
+        
         grid = new GridXZ<GridObject>(gridWidth, gridHeight, cellSize, Vector3.zero, (GridXZ<GridObject> gameObject, int x, int z) => new GridObject(gameObject, x, z));
     }
 
