@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e7747bdf78fa6141a2f81d16ff91e5f, type: 3}
+  m_Name: Wall
+  m_EditorClassIdentifier: 
+  nameString: Wall
+  prefab: {fileID: 499194666718384579, guid: 4b0e6b40b3cf5ea4181092fb1051394b, type: 3}
+  visual: {fileID: 2499414142690952232, guid: 2d73b5866e403ac44a42dffeddfce13e, type: 3}
+  width: 3
+  height: 1
+  buildingHP: 250
+  buildCost: 50
+  villagerUse: 0
+  villagerIncrease: 0
+  goldIncrease: 0
