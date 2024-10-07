@@ -263,8 +263,6 @@ public class BuildManager : MonoBehaviour
             }
         }
 
-        Debug.Log("Canbuild:" + canBuild);
-
         if (canBuild)
         {
             Vector2Int rotationOffset = placedObjectTypeSO.GetRotationOffset(dir);

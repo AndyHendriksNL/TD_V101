@@ -56,8 +56,6 @@ public class PlacedObject : MonoBehaviour {
         return placedObjectTypeSO.nameString;
     }
 
-
-
     public SaveObject GetSaveObject() {
         return new SaveObject {
             placedObjectTypeSOName = placedObjectTypeSO.name,

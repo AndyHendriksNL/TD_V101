@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     public void AddBuilding(PlacedObjectTypeSO buildingData)
     {
-        Debug.Log("Add to placedBuildings: " + buildingData.name);
+        //Debug.Log("Add to placedBuildings: " + buildingData.name);
 
         if (!placedBuildings.ContainsKey(buildingData))
         {
