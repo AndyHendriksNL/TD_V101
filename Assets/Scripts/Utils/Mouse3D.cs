@@ -19,7 +19,12 @@ public class Mouse3D : MonoBehaviour {
         }
     }
 
-    public static Vector3 GetMouseWorldPosition() => Instance.GetMouseWorldPosition_Instance();
+    public static Vector3 GetMouseWorldPosition() {
+        if (Instance == null) {
+            Debug.LogError("Mouse3D Object does not exist!");
+        }
+        return Instance.GetMouseWorldPosition_Instance();
+    }
 
     private Vector3 GetMouseWorldPosition_Instance() {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
